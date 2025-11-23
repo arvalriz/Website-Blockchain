@@ -54,7 +54,9 @@ function showPage(pageId) {
     .getElementById("tab-" + pageId.split("-")[1])
     .classList.add("active");
 }
-["home", "hash", "block", "chain", "ecc", "consensus"].forEach((p) => {
+
+// PERUBAHAN: Menambahkan "about" ke dalam list
+["home", "about", "hash", "block", "chain", "ecc", "consensus"].forEach((p) => {
   const t = document.getElementById("tab-" + p);
   if (t) t.onclick = () => showPage("page-" + p);
 });
