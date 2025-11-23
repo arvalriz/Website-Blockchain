@@ -4,6 +4,11 @@ body {
   margin: 0;
   padding: 0;
   background: #f5f5f5;
+
+  /* Tambahan untuk Sticky Footer */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Tinggi minimum 100% dari layar */
 }
 
 /* ====== Navbar ====== */
@@ -38,6 +43,9 @@ body {
   border-radius: 8px;
   margin: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+  /* Tambahan agar konten mengisi ruang kosong */
+  flex: 1; 
 }
 
 /* ====== Elemen Form ====== */
@@ -195,4 +203,116 @@ button.consensus,
 button.consensus:hover,
 #btn-consensus:hover {
   background-color: #27b3f9;
+}
+
+/* ================== TAMBAHAN CSS BARU ================== */
+
+/* Styling Konten Home */
+.timestamp-header {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.content-section {
+  line-height: 1.6;
+  color: #333;
+}
+.content-section h3 {
+  color: #2c3e50;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  margin-top: 20px;
+}
+.content-section ul, .content-section ol {
+  margin-left: 20px;
+}
+
+/* Styling Halaman About Me */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ddd;
+}
+
+.profile-info h3 {
+  margin: 0 0 10px 0;
+  color: #0056b3;
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.map-box, .form-box {
+  flex: 1;
+  min-width: 300px;
+  background: #f1f1f1;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.form-box input, .form-box textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-send {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+.btn-send:hover {
+  background-color: #45a049;
+}
+
+.main-footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  /* margin-top: 40px; <--- Hapus atau ganti dengan auto jika ingin jarak dinamis */
+  margin-top: auto; 
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #555;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.footer-contact p {
+  margin: 5px 0;
+  font-size: 0.9em;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 0.8em;
+  color: #aaa;
 }
