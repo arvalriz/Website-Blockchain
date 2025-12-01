@@ -522,3 +522,35 @@ document.getElementById("btn-consensus").onclick = async () => {
     alert("Error konsensus.");
   }
 };
+
+/// ================== UNIVERSAL POP UP LOGIC (FINAL) ================== //
+
+// Fungsi Buka Modal (Dipasang di window biar tombol HTML bisa baca)
+window.openModal = function(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('active');
+  } else {
+    console.error("Modal dengan ID " + modalId + " tidak ditemukan!");
+  }
+};
+
+// Fungsi Tutup Modal
+window.closeModal = function(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('active');
+  }
+};
+
+// Event Listener: Tutup kalau klik background gelap (Overlay)
+document.addEventListener('DOMContentLoaded', () => {
+  const overlays = document.querySelectorAll('.popup-overlay');
+  overlays.forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    });
+  });
+});
