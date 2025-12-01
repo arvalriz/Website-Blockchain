@@ -1,4 +1,4 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -17,227 +17,270 @@
       <button id="tab-consensus">Konsensus</button>
     </div>
 
-    <div id="page-home" class="page active">
-      <h2>Selamat datang di Website Belajar Blockchain</h2>
-      <div id="datetime" class="timestamp-header"></div>
-
-      <div class="content-section">
-        <h3>📘 Petunjuk Penggunaan</h3>
-        <p>
-          Website ini dirancang untuk membantu memahami konsep dan simulasi berbagai teknik dalam <strong>Blockchain Technology</strong>. Ikuti langkah-langkah berikut:
-        </p>
-        <ul>
-          <li>Klik pada bagian <strong>Menu Bar</strong> di bagian atas untuk memilih simulasi atau fitur yang ingin dipelajari.</li>
-        </ul>
+<div id="page-home" class="page active">
+      <div class="hero-wrapper">
         
-        <h4>Penjelasan Menu Bar:</h4>
-        <ol>
-          <li><strong>Home:</strong> Tampilan awal Website yang berisi panduan dan teori dasar.</li>
-          <li><strong>About Me:</strong> Profil pembuat Website, CV, dan kontak.</li>
-          <li><strong>Hash:</strong> Masukkan input teks pada area Text Input, lalu hasil SHA-256 Hash akan muncul otomatis.</li>
-          <li><strong>Block:</strong> Simulasi struktur blok tunggal. Anda dapat mengganti nomor blok, data, dan melakukan mining (Proof of Work).</li>
-          <li><strong>Block Chain:</strong> Simulasi rantai blok. Pastikan <em>Previous Hash</em> blok baru sesuai dengan hash blok sebelumnya.</li>
-          <li><strong>ECC Signature:</strong> Simulasi tanda tangan digital (Digital Signature) menggunakan algoritma Elliptic Curve.</li>
-          <li><strong>Konsensus:</strong> Simulasi mekanisme konsensus terdistribusi antar node (User A, B, C).</li>
-        </ol>
-
-        <hr>
+        <h1 class="big-display-text">BLOCKCHAIN</h1>
         
-        <h3>💡 Dasar Teori Singkat</h3>
-        <p>
-          <strong>Blockchain</strong> adalah buku besar digital yang terdesentralisasi, didistribusikan, dan seringkali bersifat publik yang terdiri dari catatan-catatan yang disebut <em>blok</em> yang digunakan untuk mencatat transaksi di banyak komputer sehingga catatan tersebut tidak dapat diubah secara retroaktif tanpa mengubah semua blok berikutnya dan konsensus jaringan.
-        </p>
+        <div class="handwritten-overlay">
+          Selamat Datang<br>di Website Belajar
+        </div>
+
+        <div id="datetime" class="date-pill"></div>
+
+        <div class="action-buttons">
+          <button class="pill-btn" onclick="openModal('modal-teori')">Dasar Teori</button>
+          <button class="pill-btn" onclick="openModal('modal-menu')">Penjelasan Menu Bar</button>
+        </div>
+
       </div>
     </div>
 
     <div id="page-about" class="page">
-      <h2>About Me</h2>
-      
-      <div class="profile-header">
-        <img src="image/profil.jpg" alt="Foto Profil" class="profile-img">
-        <div class="profile-info">
-          <h3>Arval Rizki Aditya</h3> <p>Mahasiswa, Memiliki minat khusus pada desain, pengembangan web, dan teknologi Blockchain.</p>
-        </div>
+  <div class="tech-card">
+    <h2>ABOUT ME</h2>
+    
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; margin-top: 30px;">
+      <div style="text-align: center;">
+        <img src="image/profil.jpg" alt="Foto Profil" style="width: 100%; max-width: 250px; border-radius: 20px; border: 4px solid var(--primary-orange);">
+        <h3 style="margin-top: 20px; font-family: var(--font-display);">Arval Rizki Aditya</h3>
+        <p style="color: #666;">Blockchain Enthusiast</p>
       </div>
 
-      <div class="cv-section">
-        <h3>Kompetensi</h3>
-        <ul>
-          <li>Pengembangan sistem berbasis Web (HTML, CSS, JS).</li>
-          <li>Pemahaman dasar Teknologi Blockchain dan Kriptografi.</li>
-          <li>Desain UI/UX dan Multimedia.</li>
-        </ul>
+      <div>
+        <h3 style="color: var(--primary-orange);">Profil Singkat</h3>
+        <p>Mahasiswa Teknologi Rekayasa Multimedia di PENS. Memiliki ketertarikan mendalam pada pengembangan Web3, Desain UI/UX, dan keamanan sistem Blockchain.</p>
 
-        <h3>Riwayat Pendidikan</h3>
-        <ul>
-          <li><strong>D4 Teknologi Rekayasa Multimedia</strong> — PENS (Politeknik Elektronika Negri Surabaya) (2023 - Sekarang).</li>
-          <li><strong>SMK</strong> — 2 Buduran (2020 - 2023).</li>
-        </ul>
-      </div>
-
-      <div class="contact-container">
-        <div class="map-box">
-           <h3>Lokasi</h3>
-           <iframe 
-             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.692012469607!2d112.79156731415477!3d-7.275841794748536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fa10ea2ae883%3A0xbe22c55d60ef09c7!2sPoliteknik%20Elektronika%20Negeri%20Surabaya!5e0!3m2!1sid!2sid!4v1634526365421!5m2!1sid!2sid" 
-             width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-           </iframe>
+        <h3 style="color: var(--primary-orange); margin-top: 30px;">Kompetensi</h3>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <span style="background: #eee; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold;">HTML/CSS/JS</span>
+          <span style="background: #eee; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold;">Blockchain Logic</span>
+          <span style="background: #eee; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold;">UI Design</span>
         </div>
 
-        <div class="form-box">
-          <h3>Hubungi Saya</h3>
-          <form action="#"> <label>Nama</label>
-            <input type="text" placeholder="Nama Anda" required>
-            
-            <label>Email</label>
-            <input type="email" placeholder="Email Anda" required>
-            
-            <label>Nomor Telepon</label>
-            <input type="tel" placeholder="Nomor HP">
-            
-            <label>Pesan</label>
-            <textarea rows="4" placeholder="Tulis pesan Anda di sini..."></textarea>
-            
-            <button type="button" class="btn-send">Kirim Pesan</button>
-          </form>
-        </div>
+        <h3 style="color: var(--primary-orange); margin-top: 30px;">Hubungi Saya</h3>
+        <input type="text" placeholder="Nama Anda" style="margin-bottom: 10px;">
+        <input type="email" placeholder="Email Anda" style="margin-bottom: 10px;">
+        <textarea rows="3" placeholder="Pesan..." style="margin-bottom: 10px;"></textarea>
+        <button class="mine" style="width: 100%; background-color: #ffffff; color: #FF4500; border: 2px solid #FF4500; font-weight: 800;">
+  Kirim Pesan
+</button>
       </div>
+    </div>
+  </div>
+
     </div>
 
     <div id="page-hash" class="page">
-      <h2>Hash Generator</h2>
-      <label for="hash-input">Text Input:</label>
-      <textarea id="hash-input" rows="4"></textarea>
-      <label>SHA-256 Hash:</label>
-      <div id="hash-output" class="output"></div>
+  <div class="tech-card">
+    <h2>SHA-256 GENERATOR</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">
+      Simulasi fungsi hash satu arah. Ubah satu karakter, output berubah total.
+    </p>
+    
+    <label for="hash-input">Data Input:</label>
+    <textarea id="hash-input" rows="4" placeholder="Ketik sesuatu di sini..."></textarea>
+    
+    <label>Hash Output (Digital Fingerprint):</label>
+    <div id="hash-output" class="output"></div>
+  </div>
     </div>
 
     <div id="page-block" class="page">
-      <h2>Single Block</h2>
-      <label for="block-number"># (Nomor Block):</label>
-      <input id="block-number" type="number" min="0" value="0" />
-      <label for="block-data">Data:</label>
-      <textarea id="block-data" rows="4"></textarea>
+      <div class="tech-card">
+    <h2>MINING SIMULATOR</h2>
+    
+    <div style="background: #f4f4f4; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+      <label for="block-number">Block #:</label>
+      <input id="block-number" type="number" min="0" value="1" />
+      
       <label for="block-nonce">Nonce:</label>
       <input id="block-nonce" type="text" maxlength="9" />
-      <label for="block-timestamp">Timestamp:</label>
-      <input id="block-timestamp" type="text" readonly />
+      
+      <label for="block-data">Data:</label>
+      <textarea id="block-data" rows="4">Halo Blockchain!</textarea>
+
       <label>Hash:</label>
       <div id="block-hash" class="output"></div>
-      <button id="btn-mine" class="mine">Mine</button>
-      <label for="speed-control">Kecepatan Mining:</label>
-      <select id="speed-control">
-        <option value="1">Normal</option>
-        <option value="10">10x Lebih Cepat</option>
-        <option value="50">50x Lebih Cepat</option>
-      </select>
-      <div id="mining-status" class="status"></div>
+
+      <div style="display: flex; gap: 10px; align-items: center; margin-top: 20px;">
+        <button id="btn-mine" class="mine">Mine Block</button>
+        <select id="speed-control" style="width: auto;">
+          <option value="1">Normal Speed</option>
+          <option value="10">10x Speed</option>
+          <option value="50">50x Speed</option>
+        </select>
+      </div>
+      <div id="mining-status" class="status" style="margin-top: 10px; font-weight: bold; color: var(--primary-orange);"></div>
+    </div>
+  </div>
     </div>
 
     <div id="page-chain" class="page">
-      <h2>Blockchain</h2>
-      <div id="blockchain" class="chain-container"></div>
-      <div class="chain-controls">
-        <button id="btn-add-block">Add Block</button>
-      </div>
+      <div class="tech-card">
+    <h2>BLOCKCHAIN SIMULATION</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 20px;">
+      Simulasi rantai blok. Validitas blok bergantung pada Hash blok sebelumnya.
+    </p>
+
+    <div style="overflow-x: auto; padding-bottom: 20px; margin-bottom: 20px;">
+      <div id="blockchain" class="chain-container" style="display: flex; gap: 20px;">
+        </div>
+    </div>
+
+    <div style="text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+      <button id="btn-add-block" style="width: auto; padding: 12px 40px;">
+        <i class="fas fa-plus"></i> Tambah Blok Baru
+      </button>
+    </div>
+  </div>
     </div>
 
     <div id="page-ecc" class="page">
-      <h2>Verifikasi ECC Digital Signature</h2>
-      <button id="btn-generate-key">Generate Key Pair</button>
-      <p>Public Key dan Private Key dapat diedit untuk percobaan.</p>
-      <label>Public Key:</label>
-      <textarea id="ecc-public" rows="3"></textarea>
-      <label>Private Key:</label>
-      <textarea id="ecc-private" rows="3"></textarea>
-      <hr />
-      <label>Pesan yang akan ditandatangani:</label>
-      <textarea id="ecc-message" rows="3"></textarea>
+<div class="tech-card">
+    <h2>ECC DIGITAL SIGNATURE</h2>
+    <p style="text-align: center; color: #666;">
+      Elliptic Curve Cryptography (SECP256k1)
+    </p>
+
+    <div style="background: #f9f9f9; padding: 20px; border-radius: 15px; margin-top: 20px;">
+      <h3 style="margin-top: 0; color: var(--primary-orange);">1. Generate Key Pair</h3>
+      <button id="btn-generate-key" style="margin-top: 0; margin-bottom: 15px; font-size: 0.8rem;">
+        Generate New Keys
+      </button>
+      
+      <div style="display: grid; gap: 15px;">
+        <div>
+          <label>Public Key:</label>
+          <textarea id="ecc-public" rows="2" readonly style="font-size: 0.8rem;"></textarea>
+        </div>
+        <div>
+          <label>Private Key:</label>
+          <textarea id="ecc-private" rows="2" style="font-size: 0.8rem; border-color: #ffcccc; background: #fff5f5;"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 30px; border-top: 2px dashed #eee; padding-top: 20px;">
+      <h3 style="color: var(--primary-orange);">2. Sign Message</h3>
+      <label>Pesan Asli:</label>
+      <textarea id="ecc-message" rows="3" placeholder="Tulis pesan yang mau ditandatangani..."></textarea>
+      
       <button id="btn-sign">Sign Message</button>
-      <label>Hasil Signature (DER hex):</label>
+      
+      <label style="margin-top: 15px;">Digital Signature (Hasil):</label>
       <textarea id="ecc-signature" rows="3" readonly></textarea>
-      <hr />
-      <button id="btn-verify">Verify Signature</button>
-      <div id="ecc-verify-result" class="output"></div>
+    </div>
+
+    <div style="margin-top: 30px; border-top: 2px dashed #eee; padding-top: 20px;">
+      <h3 style="color: var(--primary-orange);">3. Verify Signature</h3>
+      <button id="btn-verify" style="background: #333;">Verify Signature</button>
+      <div id="ecc-verify-result" class="output" style="margin-top: 10px; text-align: center; font-weight: bold; font-size: 1.2rem;"></div>
+    </div>
+
+  </div>
     </div>
 
     <div id="page-consensus" class="page">
-      <h2>Simulasi Konsensus</h2>
-      <div class="wallets">
-        <div class="wallet" data-user="A">
-          <h3>User A</h3>
-          <div>Saldo: <span id="saldo-A">100</span></div>
-          <label>Penerima:</label>
-          <select id="receiver-A">
-            <option value="B">User B</option>
-            <option value="C">User C</option>
-          </select>
+  <div class="tech-card" style="max-width: 1000px;">
+    <h2>DISTRIBUTED CONSENSUS</h2>
+    
+    <div class="wallets" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+      
+      <div class="wallet-card">
+        <div class="wallet-header">USER A</div>
+        <div class="wallet-balance">Saldo: <span id="saldo-A">100</span> COIN</div>
+        <div class="wallet-body">
+          <label>Kirim ke:</label>
+          <select id="receiver-A"><option value="B">User B</option><option value="C">User C</option></select>
           <label>Jumlah:</label>
           <input id="amount-A" type="number" min="1" value="10" />
-          <button id="send-A">Kirim</button>
+          <button id="send-A" class="btn-small">Kirim</button>
         </div>
-        <div class="wallet" data-user="B">
-          <h3>User B</h3>
-          <div>Saldo: <span id="saldo-B">100</span></div>
-          <label>Penerima:</label>
-          <select id="receiver-B">
-            <option value="A">User A</option>
-            <option value="C">User C</option>
-          </select>
+      </div>
+
+      <div class="wallet-card">
+        <div class="wallet-header">USER B</div>
+        <div class="wallet-balance">Saldo: <span id="saldo-B">100</span> COIN</div>
+        <div class="wallet-body">
+          <label>Kirim ke:</label>
+          <select id="receiver-B"><option value="A">User A</option><option value="C">User C</option></select>
           <label>Jumlah:</label>
           <input id="amount-B" type="number" min="1" value="10" />
-          <button id="send-B">Kirim</button>
+          <button id="send-B" class="btn-small">Kirim</button>
         </div>
-        <div class="wallet" data-user="C">
-          <h3>User C</h3>
-          <div>Saldo: <span id="saldo-C">100</span></div>
-          <label>Penerima:</label>
-          <select id="receiver-C">
-            <option value="A">User A</option>
-            <option value="B">User B</option>
-          </select>
+      </div>
+
+      <div class="wallet-card">
+        <div class="wallet-header">USER C</div>
+        <div class="wallet-balance">Saldo: <span id="saldo-C">100</span> COIN</div>
+        <div class="wallet-body">
+          <label>Kirim ke:</label>
+          <select id="receiver-C"><option value="A">User A</option><option value="B">User B</option></select>
           <label>Jumlah:</label>
           <input id="amount-C" type="number" min="1" value="10" />
-          <button id="send-C">Kirim</button>
+          <button id="send-C" class="btn-small">Kirim</button>
         </div>
-      </div>
-
-      <div style="margin-top: 12px">
-        <label>Mempool (pending transactions):</label>
-        <textarea id="mempool" rows="3" placeholder="Setiap transaksi di baris baru. Contoh: A -> B:10"></textarea>
-      </div>
-
-      <div style="margin-top: 12px">
-        <button id="btn-mine-all">Mine Semua Transaksi</button>
-        <button id="btn-verify-consensus">Verify</button>
-        <button id="btn-consensus">Consensus</button>
-      </div>
-
-      <h3 style="margin-top: 20px">Blockchain Tiap User</h3>
-      <div id="chains">
-        <h4>Database User A</h4>
-        <div id="chain-A" class="chain-row"></div>
-        <h4>Database User B</h4>
-        <div id="chain-B" class="chain-row"></div>
-        <h4>Database User C</h4>
-        <div id="chain-C" class="chain-row"></div>
       </div>
     </div>
 
-    <footer class="main-footer">
-      <div class="footer-content">
-          <div class="footer-logo">
-             <h3>PENS Blockchain Lab</h3>
-          </div>
-          <div class="footer-contact">
-              <p><i class="fas fa-envelope"></i> Email: arvalriz24@gmail.com</p>
-              <p><i class="fas fa-globe"></i> Website: https://af983c70.website-blockchain.pages.dev/</p>
-          </div>
+<div style="background: #f9f9f9; color: #333; padding: 25px; border-radius: 15px; margin-bottom: 30px; border: 2px dashed #ddd;">
+      
+      <h3 style="margin-top: 0; color: var(--primary-orange); display: flex; align-items: center; gap: 10px;">
+        <i class="fas fa-list-alt"></i> Mempool (Pending Transactions)
+      </h3>
+      
+      <textarea id="mempool" rows="4" placeholder="Transaksi yang menunggu konfirmasi akan muncul di sini..." 
+        style="background: white; color: #333; border: 1px solid #ddd; width: 100%; padding: 15px; border-radius: 10px; font-family: var(--font-code);"></textarea>
+      
+      <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+        <button id="btn-mine-all">Mine Semua Transaksi</button>
+        <button id="btn-verify-consensus">Verify Chain</button>
+        <button id="btn-consensus">Force Consensus</button>
       </div>
-      <div class="footer-bottom">
-          &copy; 2025 - Teknologi Rekayasa Multimedia
-      </div>
-    </footer>
+      
+    </div>
+
+    <h3>Blockchain Ledger Tiap Node</h3>
+    <div id="chains" style="display: grid; gap: 20px;">
+      <div><h4 style="margin: 0 0 10px 0;">Node A</h4><div id="chain-A" class="chain-row" style="overflow-x: auto; padding-bottom: 10px;"></div></div>
+      <div><h4 style="margin: 0 0 10px 0;">Node B</h4><div id="chain-B" class="chain-row" style="overflow-x: auto; padding-bottom: 10px;"></div></div>
+      <div><h4 style="margin: 0 0 10px 0;">Node C</h4><div id="chain-C" class="chain-row" style="overflow-x: auto; padding-bottom: 10px;"></div></div>
+    </div>
+
+  </div> </div> <div id="modal-teori" class="popup-overlay">
+  <div class="popup-box orange-theme">
+    <div class="popup-header">
+      <h3>Dasar Teori Singkat</h3>
+      <button class="btn-close" onclick="closeModal('modal-teori')">&times;</button>
+    </div>
+    <div class="popup-content left-align">
+      <p>
+        Blockchain adalah buku besar digital yang terdesentralisasi, didistribusikan, dan seringkali bersifat publik yang terdiri dari catatan-catatan yang disebut blok yang digunakan untuk mencatat transaksi di banyak komputer sehingga catatan tersebut tidak dapat diubah secara retroaktif tanpa mengubah semua blok berikutnya dan konsensus jaringan.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-menu" class="popup-overlay">
+  <div class="popup-box orange-theme">
+    <div class="popup-header">
+      <h3>Penjelasan Menu Bar:</h3>
+      <button class="btn-close" onclick="closeModal('modal-menu')">&times;</button>
+    </div>
+    <div class="popup-content left-align">
+      <ul>
+        <li><strong>Home:</strong> Tampilan Awal Website.</li>
+        <li><strong>About Me:</strong> Profil pembuat Website & Kontak.</li>
+        <li><strong>Hash:</strong> Input teks & hasil SHA-256.</li>
+        <li><strong>Block:</strong> Simulasi struktur blok tunggal (Mining).</li>
+        <li><strong>Block Chain:</strong> Simulasi rantai blok.</li>
+        <li><strong>ECC Signature:</strong> Simulasi Tanda tangan digital.</li>
+        <li><strong>Konsensus:</strong> Simulasi mekanisme konsensus (A, B, C).</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/elliptic/6.5.4/elliptic.min.js"></script>
     <script src="app.js"></script>
