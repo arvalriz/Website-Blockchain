@@ -1,34 +1,272 @@
-/* ====== Umum ====== */
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f5f5f5;
+/* 1. Import Semua Font Baru */
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Archivo:wght@400;600;800&family=Archivo+Black&family=Montserrat:wght@400;600;700&display=swap');
 
-  /* Tambahan untuk Sticky Footer */
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Tinggi minimum 100% dari layar */
+:root {
+  /* Font Variables */
+  --font-display: 'Archivo Black', sans-serif;    /* Buat BLOCKCHAIN gede */
+  --font-hand: 'Architects Daughter', cursive;    /* Buat tulisan tangan */
+  --font-body: 'Montserrat', sans-serif;          /* Buat teks biasa */
+  --font-ui: 'Archivo', sans-serif;               /* Buat UI elements */
+
+  /* Color Palette */
+  --primary-orange: #FF4500; /* Orange lebih merah (Sesuai screenshot) */
+  --bg-color: #F4F4F4;       /* Abu-abu terang */
+  --text-dark: #111111;
+  --text-white: #ffffff;
 }
 
-/* ====== Navbar ====== */
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden; /* Mencegah scroll samping karena teks gede */
+}
+
+/* Navbar Update (Font Montserrat) */
+.navbar button {
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #888;
+}
+.navbar button.active {
+  color: var(--primary-orange);
+}
+
+/* ================== HERO SECTION BARU ================== */
+.hero-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  min-height: 60vh; /* Tinggi area hero */
+}
+
+/* 1. Teks Raksasa "BLOCKCHAIN" */
+.big-display-text {
+  font-family: var(--font-display);
+  font-size: 32vh; /* Ukuran responsif (12% dari lebar layar) */
+  line-height: 1;
+  color: var(--primary-orange);
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  
+  /* Animasi Masuk */
+  opacity: 0;
+  transform: scale(0.9);
+  animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* 2. Teks Tulisan Tangan (Overlay) */
+.handwritten-overlay {
+  font-family: var(--font-hand);
+  font-size: 4rem;
+  color: black;
+  position: absolute;
+  top: 45%; /* Posisi di tengah vertikal */
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-6deg); /* Miring dikit */
+  padding: 10px 30px;
+  z-index: 2;
+  white-space: nowrap;
+  
+  /* Animasi */
+  opacity: 0;   
+  animation: fadeInRotate 1s ease-out forwards 0.5s; /* Delay 0.5s */
+}
+
+/* 3. Date Pill (Diupdate style-nya) */
+.date-pill {
+  margin-top: 40px;
+  border: 1px solid var(--primary-orange);
+  color: var(--primary-orange);
+  padding: 10px 30px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: transparent;
+  z-index: 3;
+}
+
+/* 4. Tombol Menu Baru */
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  z-index: 3;
+}
+
+.pill-btn {
+  background-color: var(--primary-orange);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-family: var(--font-ui); /* Archivo Bold */
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
+}
+
+.pill-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 69, 0, 0.4);
+}
+
+/* ================== ANIMATION KEYFRAMES ================== */
+@keyframes popIn {
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInRotate {
+  from { opacity: 0; transform: translate(-50%, -40%) rotate(0deg); }
+  to { opacity: 1; transform: translate(-50%, -50%) rotate(-6deg); }
+}
+/* NAVBAR STYLE */
 .navbar {
   display: flex;
-  background: #333;
+  justify-content: center;
+  gap: 20px;
+  background: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .navbar button {
-  flex: 1;
-  padding: 15px;
-  color: white;
+  font-family: var(--font-main); /* Nav tetep Archivo biar gampang dibaca */
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #999;
   background: none;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  padding: 5px 10px;
 }
 
-.navbar button.active {
-  background: #555;
+.navbar button.active, .navbar button:hover {
+  color: var(--primary-orange);
+}
+
+/* === BAGIAN KHUSUS TEKNIS (Pake Anonymous Pro) === */
+
+/* 1. Tanggal (Date Pill) */
+.date-pill {
+  font-family: var(--font-code); /* Pake Anonymous Pro biar kayak terminal */
+  font-size: 0.85rem;
+  border: 1px solid var(--primary-orange);
+  color: var(--primary-orange);
+  background: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  display: inline-block;
+}
+
+/* 2. Input, Textarea, dan Output Hash */
+input, textarea, .output, .hash-output {
+  font-family: var(--font-code) !important; /* Paksa jadi monospace */
+}
+
+/* === LAYOUT HOME (Sama kayak sebelumnya) === */
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.hero-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem; /* Gedein dikit karena Archivo lebih compact */
+  line-height: 1;
+  color: black;
+  margin: 0;
+}
+
+.hero-text span {
+  font-weight: 400;
+  font-size: 0.6em; /* "Belajar Blockchain" lebih kecil */
+  display: block;   /* Biar turun ke bawah */
+  margin-top: 10px;
+}
+
+.hero-visual {
+  width: 100%;
+  height: 250px;
+  background: var(--gradient-bg);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 126, 54, 0.2);
+}
+
+.date-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+}
+
+.info-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.orange-card {
+  background-color: var(--primary-orange);
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(255, 126, 54, 0.2);
+}
+
+.orange-card h3 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.orange-card p, .orange-card li {
+  font-family: var(--font-code); /* Isi penjelasan pake Anonymous Pro biar kerasa 'tech' */
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Style khusus list menu */
+.orange-card ul {
+  list-style: none; /* Hilangkan bullet point default */
+  padding: 0;
+}
+
+.orange-card li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 5px;
+}
+
+.orange-card.text-dark {
+  color: black; 
+}
+.orange-card.text-dark li {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 /* ====== Halaman / Tab ====== */
@@ -168,7 +406,7 @@ button.mine,
 }
 button.mine:hover,
 #btn-mine-all:hover {
-  background-color: #1fa526;
+  background-color: #ffffff;
 }
 
 /* Tombol "Verify" → pink cerah */
@@ -275,7 +513,7 @@ button.consensus:hover,
 }
 
 .btn-send {
-  background-color: #4caf50;
+  background-color: #cacaca;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -285,34 +523,350 @@ button.consensus:hover,
   font-size: 16px;
 }
 .btn-send:hover {
-  background-color: #45a049;
+  background-color: #e4e4e4;
 }
 
-.main-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  /* margin-top: 40px; <--- Hapus atau ganti dengan auto jika ingin jarak dinamis */
-  margin-top: auto; 
+/* ================== SYSTEM POP-UP (WAJIB ADA) ================== */
+
+/* 1. Latar Belakang Gelap (Overlay) */
+.popup-overlay {
+  position: fixed;        /* KUNCI: Biar melayang di atas layar */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Background hitam transparan */
+  backdrop-filter: blur(5px);     /* Efek blur */
+  z-index: 9999;          /* Pastikan layer paling atas (di atas navbar/footer) */
+  
+  /* Settingan Sembunyi (Default) */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  
+  /* Biar konten di tengah layar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.footer-content {
+/* 2. Keadaan Aktif (Pas Tombol Diklik) */
+.popup-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 3. Kotak Konten Pop-up */
+.popup-box {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;             /* Responsive di HP */
+  max-width: 600px;       /* Maksimal lebar di Desktop */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  
+  /* Animasi Masuk (Scale effect) */
+  transform: scale(0.8) translateY(20px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Pas overlay aktif, kotaknya muncul normal */
+.popup-overlay.active .popup-box {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* ================== TEMA ORANGE & DETAIL ================== */
+
+/* Warna khusus Orange sesuai desain lo */
+.popup-box.orange-theme {
+  background-color: var(--primary-orange); 
+  color: white;
+  text-align: left;
+}
+
+/* Header Pop-up (Judul & Tombol Close) */
+.popup-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  border-bottom: 1px solid #555;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 10px;
 }
 
-.footer-contact p {
-  margin: 5px 0;
-  font-size: 0.9em;
+.popup-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-family: var(--font-ui); /* Archivo */
 }
 
-.footer-bottom {
+/* Tombol X (Close) */
+.btn-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+  transition: transform 0.2s;
+}
+
+.btn-close:hover {
+  transform: rotate(90deg); /* Efek muter pas di-hover */
+}
+
+/* Isi Konten */
+.popup-content {
+  font-family: var(--font-body); /* Montserrat */
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.popup-content ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.popup-content li {
+  margin-bottom: 10px;
+}
+
+/* ================== GLOBAL PAGE STYLING (THEME UPDATE) ================== */
+
+/* 1. Judul Halaman (Style 'BLOCKCHAIN' tapi versi kecil) */
+h2 {
+  font-family: var(--font-display); /* Archivo Black */
+  font-size: 3rem;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
   text-align: center;
-  font-size: 0.8em;
-  color: #aaa;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+/* 2. Container Putih (Tech Card) */
+.tech-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05); /* Bayangan halus */
+  max-width: 900px;
+  margin: 20px auto; /* Tengahin */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Garis aksen oranye di atas kartu */
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--primary-orange);
+}
+
+/* 3. Input & Textarea Modern */
+input, textarea, select {
+  font-family: var(--font-code) !important; /* Anonymous Pro */
+  background: #FAFAFA;
+  border: 2px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary-orange);
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 69, 0, 0.1);
+}
+
+/* 4. Output Box (Hasil Hash) */
+.output, .hash-output {
+  background: #FAFAFA; 
+  color: black;       
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+  min-height: 60px;
+}
+
+/* 5. Update Semua Tombol (Jadi Orange Pill) */
+button.mine, #btn-add-block, #btn-generate-key, #btn-sign, #btn-verify, 
+.wallet button, #btn-mine-all, #btn-verify-consensus, #btn-consensus {
+  background-color: var(--primary-orange);
+  color: white;
+  font-family: var(--font-ui); /* Archivo */
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 15px;
+  letter-spacing: 0.05em;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3);
+}
+
+/* Label styling */
+label {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 8px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ================== STYLE TAMBAHAN KONSENSUS ================== */
+
+/* Kartu Dompet User */
+.wallet-card {
+  border: 2px solid #eee;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.wallet-card:hover {
+  border-color: var(--primary-orange);
+  transform: translateY(-5px);
+}
+
+.wallet-header {
+  background: #FF4500;
+  color: white;
+  padding: 15px;
+  font-family: var(--font-display);
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.wallet-balance {
+  background: var(--primary-orange);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-family: var(--font-code);
+}
+
+.wallet-body {
+  padding: 20px;
+  background: white;
+}
+
+/* Tombol kecil khusus di dalam wallet */
+.btn-small {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  border-radius: 12px;
+  background-color: white !important; /* Hitam biar beda */
+}
+
+/* ================== PERBAIKAN TOMBOL (FORCE FIX) ================== */
+
+/* Target SEMUA tombol operasi yang error */
+button.mine, 
+#btn-add-block, 
+#btn-generate-key, 
+#btn-sign, 
+#btn-verify, 
+.btn-small, 
+#btn-mine-all, 
+#btn-verify-consensus, 
+#btn-consensus {
+  background-color: white !important;       /* Paksa Background Putih */
+  color: #FF4500 !important;                /* Paksa Teks Orange */
+  border: 2px solid #FF4500 !important;     /* Garis Pinggir Orange */
+  font-family: var(--font-ui) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: none !important;              /* Hapus shadow aneh kalau ada */
+}
+
+/* Efek pas kursor diarahkan (Hover) -> Jadi Orange Penuh */
+button.mine:hover, 
+#btn-add-block:hover, 
+#btn-generate-key:hover, 
+#btn-sign:hover, 
+#btn-verify:hover, 
+.btn-small:hover, 
+#btn-mine-all:hover, 
+#btn-verify-consensus:hover, 
+#btn-consensus:hover {
+  background-color: #FF4500 !important;     /* Jadi Orange */
+  color: white !important;                  /* Teks Jadi Putih */
+  transform: translateY(-2px);              /* Naik Dikit */
+  box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3) !important;
+}
+
+/* ================== FIX TAMPILAN BLOK (NO MORE GREEN) ================== */
+
+/* 1. Blok Besar di Halaman "Block Chain" */
+.blockchain-block {
+  background-color: #ffffff !important;      /* Ubah Hijau jadi Putih */
+  border: 1px solid #e0e0e0 !important;      /* Garis pinggir abu halus */
+  border-radius: 16px !important;            /* Sudut lebih tumpul */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05) !important; /* Bayangan soft */
+  
+  /* Kasih 'Topi' Orange biar ganteng */
+  border-top: 6px solid var(--primary-orange) !important; 
+  color: #333 !important;
+  margin-right: 20px !important;
+}
+
+/* 2. Blok Kecil di Halaman "Konsensus" (Node A, B, C) */
+.chain-block {
+  background: #ffffff !important;            /* Ubah Hijau jadi Putih */
+  border: 1px solid #eee !important;         
+  border-radius: 8px !important;
+  
+  /* Kasih Aksen Garis di Kiri */
+  border-left: 4px solid var(--primary-orange) !important; 
+  
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* 3. Kalau Blok Invalid (Hash Merah) - Biar tetep keliatan beda */
+.chain-block.invalid {
+  background: #fff5f5 !important;            /* Merah pudar banget */
+  border-left-color: #ff0000 !important;     /* Garis kiri merah */
+}
+
+/* 4. Perbaiki Input di dalam Blok biar gak dempet */
+.blockchain-block input, 
+.blockchain-block textarea,
+.chain-block input,
+.chain-block textarea {
+  background: #f9f9f9 !important;
+  border: 1px solid #eee !important;
+  margin-top: 5px !important;
 }
