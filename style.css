@@ -1,5 +1,5 @@
 /* 1. Import Semua Font Baru */
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Archivo:wght@400;600;800&family=Archivo+Black&family=Montserrat:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Archivo:wght@400;500;600;800&family=Archivo+Black&family=Montserrat:wght@400;600;700&display=swap');
 
 :root {
   /* Font Variables */
@@ -869,4 +869,342 @@ button.mine:hover,
   background: #f9f9f9 !important;
   border: 1px solid #eee !important;
   margin-top: 5px !important;
+}
+
+/* ================== FOOTER PENS STYLE ================== */
+
+.main-footer {
+  background-color: #ffffff;      /* Background Putih Bersih */
+  border-top: 5px solid var(--primary-orange); /* Garis Orange di atas */
+  padding: 30px 0 10px;           /* Spasi atas bawah */
+  margin-top: auto;               /* Biar footer selalu di paling bawah */
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.03); /* Bayangan halus ke atas */
+}
+
+.footer-container {
+  max-width: 1200px;              /* Lebar maksimal konten */
+  margin: 0 auto;                 /* Tengahin konten */
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between; /* Logo kiri, Teks kanan */
+  align-items: center;            /* Rata tengah vertikal */
+  flex-wrap: wrap;                /* Biar aman di HP */
+  gap: 20px;
+}
+
+/* Styling Logo PENS */
+.footer-logo img {
+  height: 60px;                   /* Ukuran logo pas */
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Styling Bagian Kanan (Kontak) */
+.footer-info {
+  text-align: left;
+}
+
+.footer-info p {
+  margin: 5px 0;
+  font-family: var(--font-body);  /* Font Montserrat */
+  font-size: 0.95rem;
+  color: #555;                    /* Abu tua biar enak dibaca */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Ikon (Amplop & Globe) */
+.footer-info i {
+  color: var(--primary-orange);   /* Ikon warna Orange */
+  font-size: 1.1rem;
+  width: 20px;                    /* Lebar tetap biar teks rata */
+  text-align: center;
+}
+
+/* Link Email/Web */
+.footer-info a {
+  text-decoration: none;
+  color: #0056b3;                 /* Biru standar link (mirip PENS) */
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.footer-info a:hover {
+  color: var(--primary-orange);   /* Berubah orange pas di-hover */
+}
+
+/* Copyright Baris Paling Bawah */
+.footer-copyright {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;     /* Garis tipis pemisah */
+  font-size: 0.8rem;
+  color: #aaa;
+  font-family: var(--font-ui);
+}
+
+/* RESPONSIVE (Tampilan HP) */
+@media (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;       /* Logo di atas, teks di bawah */
+    align-items: flex-start;      /* Rata kiri semua */
+  }
+  
+  .footer-logo img {
+    height: 50px;                 /* Kecilin logo dikit di HP */
+  }
+}
+
+/* ================== FOOTER BLOCK GRADIENT STYLE ================== */
+
+.block-footer {
+  width: 100%;
+  margin-top: auto;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 1. KOTAK ATAS (GRADASI ORANGE) */
+.orange-gradient-box {
+  /* Gradasi dari Putih (kiri) ke Orange (kanan) persis screenshot */
+  background: linear-gradient(90deg, #ffffff 0%, #FF4500 60%);
+  padding: 40px 5%; /* Padding kanan-kiri */
+  display: flex;
+  justify-content: flex-end; /* Teks Rata Kanan */
+  align-items: center;
+  min-height: 120px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: right; /* Teks Rata Kanan */
+}
+
+.footer-links a {
+  font-family: Archivo(--font-body); /* Font Montserrat/Arial */
+  font-size: 90px; /* Ukuran Besar sesuai gambar */
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bayangan tipis biar kebaca */
+  
+  /* Kalau lo mau teksnya beneran kebalik (Mirror) kayak di screenshot, 
+     hapus tanda komentar di bawah ini: */
+   
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+/* 2. KOTAK BAWAH (LOGO PENS) */
+.logo-section {
+  background: white;
+  padding: 20px 5%;
+  display: flex;
+  align-items: center;
+  /* Logo ada di kiri */
+  justify-content: flex-start; 
+}
+
+.logo-section img {
+  width: 250px; /* Ukuran logo agak besar */
+  height: auto;
+}
+
+/* RESPONSIVE (HP) */
+@media (max-width: 768px) {
+  .orange-gradient-box {
+    background: linear-gradient(180deg, #FF4500 0%, #ffffff 100%); /* Gradasi turun kalau di HP */
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .footer-links {
+    text-align: center;
+  }
+
+  .footer-links a {
+    font-size: 1.2rem; /* Kecilin dikit di HP */
+  }
+
+  .logo-section {
+    justify-content: center; /* Logo tengah di HP */
+    padding-bottom: 40px;
+  }
+}
+
+
+.modern-footer {
+  background-color: #ffffff;
+  border-top: 1px solid #eaeaea; 
+  margin-top: auto;
+  width: 100%;
+  padding-top: 50px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.02); /* Shadow sangat halus ke atas */
+}
+
+.footer-wrapper {
+  max-width: 1000px;        /* Kita batesin lebarnya biar gak melebar banget */
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  flex-wrap: wrap;
+  
+  gap: 80px;                
+}
+
+/* 1. BRAND SECTION (KIRI) */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  
+}
+
+.brand-logo {
+  width: 200px; /* Ukuran logo pas, gak kegedean */
+  height: auto;
+}
+
+.brand-text h3 {
+  font-family: var(--font-display); /* Archivo Black */
+  font-size: 1.2rem;
+  margin: 0 0 5px 0;
+  color: #222;
+  text-transform: uppercase;
+}
+
+.brand-text p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+/* 2. CONTACT SECTION (KANAN) */
+.footer-contact-card {
+  display: flex;
+  gap: 40px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-circle {
+  width: 45px;
+  height: 45px;
+  background-color: #FFF4EC; /* Orange sangat muda (Pucat) */
+  color: var(--primary-orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+/* Efek Hover di Ikon */
+.contact-row:hover .icon-circle {
+  background-color: var(--primary-orange);
+  color: white;
+  transform: rotate(15deg);
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #999;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.footer-contact-card a {
+  text-decoration: none;
+  color: #333;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.footer-contact-card a:hover {
+  color: var(--primary-orange);
+}
+
+/* 3. COPYRIGHT BAR */
+.footer-bottom {
+  background-color: #fafafa; /* Abu sangat terang */
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #aaa;
+  font-size: 0.85rem;
+  font-family: var(--font-code); /* Anonymous Pro biar techy */
+}
+
+/* RESPONSIVE (HP) */
+@media (max-width: 768px) {
+  .footer-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+  
+  .footer-contact-card {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .brand-text {
+    display: none; /* Di HP sembunyiin teks tagline biar logo aja yg fokus */
+  }
+}
+
+/* ================== MAPS LOCATION STYLE ================== */
+
+/* 1. Kotak Pembungkus Maps */
+.map-container {
+  width: 100%;
+  height: 300px;              /* Tinggi peta, kalau 0 gak bakal muncul */
+  border-radius: 16px;        /* Sudut tumpul biar modern */
+  overflow: hidden;           /* Biar peta gak keluar jalur */
+  border: 3px solid #eee;     /* Garis pinggir abu halus */
+  margin-top: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05); /* Bayangan tipis */
+  transition: all 0.3s ease;
+}
+
+/* 2. Iframe Google Maps-nya */
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block; /* Hapus gap di bawah iframe */
+}
+
+/* 3. Efek Hover (Pas mouse nyentuh peta) */
+.map-container:hover {
+  border-color: var(--primary-orange); /* Garis berubah jadi Orange */
+  box-shadow: 0 10px 25px rgba(255, 69, 0, 0.2); /* Bayangan makin tebal */
+  transform: translateY(-5px); /* Peta naik dikit */
 }
