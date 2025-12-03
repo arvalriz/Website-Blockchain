@@ -1,342 +1,556 @@
-<!DOCTYPE html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blockchain Simulator - Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  </head>
-  <body>
-    <div class="navbar">
-      <button id="tab-home" class="active">Home</button>
-      <button id="tab-about">About Me</button> <button id="tab-hash">Hash</button>
-      <button id="tab-block">Block</button>
-      <button id="tab-chain">Block Chain</button>
-      <button id="tab-ecc">ECC Signature</button>
-      <button id="tab-consensus">Konsensus</button>
-    </div>
+// ================== DATE & TIME ==================
+function updateDateTime() {
+  const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+  const months = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ];
+  const now = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" })
+  );
+  const dayName = days[now.getDay()];
+  const date = now.getDate();
+  const month = months[now.getMonth()];
+  const year = now.getFullYear();
+  const hh = now.getHours().toString().padStart(2, "0");
+  const mm = now.getMinutes().toString().padStart(2, "0");
+  const ss = now.getSeconds().toString().padStart(2, "0");
+  document.getElementById(
+    "datetime"
+  ).textContent = `${dayName}, ${date} ${month} ${year} (${hh}:${mm}:${ss} WIB)`;
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
 
-<div id="page-home" class="page active">
-      <div class="hero-wrapper">
-        
-        <h1 class="big-display-text">BLOCKCHAIN</h1>
-        
-        <div class="handwritten-overlay">
-          Selamat Datang<br>di Website Belajar
-        </div>
+// ================== SHA-256 ==================
+async function sha256(msg) {
+  const enc = new TextEncoder();
+  const buf = await crypto.subtle.digest("SHA-256", enc.encode(msg));
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
-        <div id="datetime" class="date-pill"></div>
+// ================== NAVIGATION ==================
+function showPage(pageId) {
+  document
+    .querySelectorAll(".page")
+    .forEach((p) => p.classList.remove("active"));
+  document
+    .querySelectorAll(".navbar button")
+    .forEach((b) => b.classList.remove("active"));
+  document.getElementById(pageId).classList.add("active");
+  document
+    .getElementById("tab-" + pageId.split("-")[1])
+    .classList.add("active");
+}
 
-        <div class="action-buttons">
-          <button class="pill-btn" onclick="openModal('modal-teori')">Dasar Teori</button>
-          <button class="pill-btn" onclick="openModal('modal-menu')">Penjelasan Menu Bar</button>
-        </div>
+// PERUBAHAN: Menambahkan "about" ke dalam list
+["home", "about", "hash", "block", "chain", "ecc", "consensus"].forEach((p) => {
+  const t = document.getElementById("tab-" + p);
+  if (t) t.onclick = () => showPage("page-" + p);
+});
 
-      </div>
-    </div>
+// ================== HASH PAGE ==================
+document.getElementById("hash-input").addEventListener("input", async (e) => {
+  document.getElementById("hash-output").textContent = await sha256(
+    e.target.value
+  );
+});
 
-    <div id="page-about" class="page">
-  <div class="tech-card">
-    <h2>ABOUT ME</h2>
-    
-    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; margin-top: 30px;">
-      <div style="text-align: center;">
-        <img src="p.jpeg" alt="Foto Profil" style="width: 100%; max-width: 250px; border-radius: 20px; border: 4px solid var(--primary-orange);">
-        <h3 style="margin-top: 20px; font-family: var(--font-display);">Arval Rizki Aditya</h3>
-        <p style="color: #666;">Mahasiswa Semester 5</p>
-      </div>
+// ================== BLOCK PAGE ==================
+const blockData = document.getElementById("block-data");
+const blockNonce = document.getElementById("block-nonce");
+const blockHash = document.getElementById("block-hash");
+const blockTimestamp = document.getElementById("block-timestamp");
+const speedControl = document.getElementById("speed-control");
 
-      <div>
-        <h3 style="color: var(--primary-orange);">Profil Singkat</h3>
-        <p>Mahasiswa Teknologi Rekayasa Multimedia di PENS. Memiliki ketertarikan mendalam pada pengembangan Web3, Desain UI/UX, dan keamanan sistem Blockchain.</p>
+blockNonce.addEventListener("input", (e) => {
+  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+  updateBlockHash();
+});
+blockData.addEventListener("input", updateBlockHash);
 
-        <h3 style="color: var(--primary-orange); margin-top: 30px;">Kompetensi</h3>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <span style="background: #eee; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold;">HTML/CSS/JS</span>
-          <span style="background: #eee; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold;">Blockchain Logic</span>
-          <span style="background: #eee; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: bold;">UI Design</span>
-        </div>
+async function updateBlockHash() {
+  const data = blockData.value;
+  const nonce = blockNonce.value || "0";
+  blockHash.textContent = await sha256(data + nonce);
+}
 
-        <h3 style="color: var(--primary-orange); margin-top: 30px;">Hubungi Saya</h3>
-        <input type="text" placeholder="Nama Anda" style="margin-bottom: 10px;">
-        <input type="email" placeholder="Email Anda" style="margin-bottom: 10px;">
-        <textarea rows="3" placeholder="Pesan..." style="margin-bottom: 10px;"></textarea>
-        <button class="mine" style="width: 100%; background-color: #ffffff; color: #FF4500; border: 2px solid #FF4500; font-weight: 800;">
-  Kirim Pesan
-</button>
+document.getElementById("btn-mine").addEventListener("click", async () => {
+  const data = blockData.value;
+  const speedMultiplier = parseInt(speedControl.value) || 1;
+  const baseBatch = 1000;
+  const batchSize = baseBatch * speedMultiplier;
+  const difficulty = "0000";
+  const status = document.getElementById("mining-status");
+  const timestamp = new Date().toLocaleString("en-US", {
+    timeZone: "Asia/Jakarta",
+  });
+  blockTimestamp.value = timestamp;
+  blockHash.textContent = "";
+  blockNonce.value = "0";
+  let nonce = 0;
+  if (status) status.textContent = "Mining...";
+  async function mineStep() {
+    const promises = [];
+    for (let i = 0; i < batchSize; i++) {
+      promises.push(sha256(data + timestamp + (nonce + i)));
+    }
+    const results = await Promise.all(promises);
+    for (let i = 0; i < results.length; i++) {
+      const h = results[i];
+      if (h.startsWith(difficulty)) {
+        blockNonce.value = nonce + i;
+        blockHash.textContent = h;
+        if (status)
+          status.textContent = `Mining selesai (Nonce=${nonce + i})`;
+        return;
+      }
+    }
+    nonce += batchSize;
+    blockNonce.value = nonce;
+    if (status) status.textContent = `Mining... Nonce=${nonce}`;
+    setTimeout(mineStep, 0);
+  }
+  mineStep();
+});
 
-        <h3 style="color: var(--primary-orange); margin-top: 30px;">Lokasi Kampus</h3>
-        <div class="map-container">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.692024097486!2d112.79156707478644!3d-7.275841792731118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fa10ea2ae883%3A0xbe22c55d60ef0bc6!2sPoliteknik%20Elektronika%20Negeri%20Surabaya!5e0!3m2!1sid!2sid!4v1709600000000!5m2!1sid!2sid" 
-          allowfullscreen="" 
-          loading="lazy" 
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
+// ================== BLOCKCHAIN PAGE ==================
+const ZERO_HASH = "0".repeat(64);
+let blocks = [];
+const chainDiv = document.getElementById("blockchain");
 
-        </div> </div> </div> </div> ```
+function renderChain() {
+  chainDiv.innerHTML = "";
+  blocks.forEach((blk, i) => {
+    const div = document.createElement("div");
+    div.className = "blockchain-block";
+    div.innerHTML = `
+      <h3>Block #${blk.index}</h3>
+      <label>Previous Hash:</label><div class="output">${blk.previousHash}</div>
+      <label>Data:</label><textarea rows="2" onchange="onChainDataChange(${i},this.value)">${blk.data}</textarea>
+      <button onclick="mineChainBlock(${i})" class="mine">Mine</button>
+      <div id="status-${i}" class="status"></div>
+      <label>Timestamp:</label><div class="output" id="timestamp-${i}">${blk.timestamp}</div>
+      <label>Nonce:</label><div class="output" id="nonce-${i}">${blk.nonce}</div>
+      <label>Hash:</label><div class="output" id="hash-${i}">${blk.hash}</div>`;
+    chainDiv.appendChild(div);
+  });
+}
+function addChainBlock() {
+  const idx = blocks.length;
+  const prev = idx ? blocks[idx - 1].hash : ZERO_HASH;
+  const blk = {
+    index: idx,
+    data: "",
+    previousHash: prev,
+    timestamp: "",
+    nonce: 0,
+    hash: "",
+  };
+  blocks.push(blk);
+  renderChain();
+}
+window.onChainDataChange = function (i, val) {
+  blocks[i].data = val;
+  blocks[i].nonce = 0;
+  blocks[i].timestamp = "";
+  blocks[i].hash = "";
+  for (let j = i + 1; j < blocks.length; j++) {
+    blocks[j].previousHash = blocks[j - 1].hash;
+    blocks[j].nonce = 0;
+    blocks[j].timestamp = "";
+    blocks[j].hash = "";
+  }
+  renderChain();
+};
+window.mineChainBlock = function (i) {
+  const blk = blocks[i];
+  const prev = blk.previousHash;
+  const data = blk.data;
+  const difficulty = "0000";
+  const batchSize = 1000 * 50;
+  blk.nonce = 0;
+  blk.timestamp = new Date().toLocaleString("en-US", {
+    timeZone: "Asia/Jakarta",
+  });
+  const t0 = performance.now();
+  const status = document.getElementById(`status-${i}`);
+  const ndiv = document.getElementById(`nonce-${i}`);
+  const hdiv = document.getElementById(`hash-${i}`);
+  const tdiv = document.getElementById(`timestamp-${i}`);
+  status.textContent = "Proses mining...";
+  async function step() {
+    const promises = [];
+    for (let j = 0; j < batchSize; j++)
+      promises.push(sha256(prev + data + blk.timestamp + (blk.nonce + j)));
+    const results = await Promise.all(promises);
+    for (let j = 0; j < results.length; j++) {
+      const h = results[j];
+      if (h.startsWith(difficulty)) {
+        blk.nonce += j;
+        blk.hash = h;
+        ndiv.textContent = blk.nonce;
+        hdiv.textContent = h;
+        tdiv.textContent = blk.timestamp;
+        const dur = ((performance.now() - t0) / 1000).toFixed(3);
+        status.textContent = `Mining selesai (${dur}s)`;
+        return;
+      }
+    }
+    blk.nonce += batchSize;
+    ndiv.textContent = blk.nonce;
+    setTimeout(step, 0);
+  }
+  step();
+};
+document.getElementById("btn-add-block").onclick = addChainBlock;
+addChainBlock();
 
-      </div>
-    </div>
-  </div>
+// ================== ECC DIGITAL SIGNATURE ==================
+const ec = new elliptic.ec("secp256k1");
+const eccPrivate = document.getElementById("ecc-private");
+const eccPublic = document.getElementById("ecc-public");
+const eccMessage = document.getElementById("ecc-message");
+const eccSignature = document.getElementById("ecc-signature");
+const eccVerifyResult = document.getElementById("ecc-verify-result");
+function randomPrivateHex() {
+  const arr = new Uint8Array(32);
+  crypto.getRandomValues(arr);
+  return Array.from(arr)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+function normHex(h) {
+  if (!h) return "";
+  return h.toLowerCase().replace(/^0x/, "");
+}
+document.getElementById("btn-generate-key").onclick = () => {
+  const priv = randomPrivateHex();
+  const key = ec.keyFromPrivate(priv, "hex");
+  const pub =
+    "04" +
+    key.getPublic().getX().toString("hex").padStart(64, "0") +
+    key.getPublic().getY().toString("hex").padStart(64, "0");
+  eccPrivate.value = priv;
+  eccPublic.value = pub;
+  eccSignature.value = "";
+  eccVerifyResult.textContent = "";
+};
+document.getElementById("btn-sign").onclick = async () => {
+  const msg = eccMessage.value;
+  if (!msg) {
+    alert("Isi pesan!");
+    return;
+  }
+  const priv = normHex(eccPrivate.value.trim());
+  if (!priv) {
+    alert("Private key kosong!");
+    return;
+  }
+  const hash = await sha256(msg);
+  const sig = ec
+    .keyFromPrivate(priv, "hex")
+    .sign(hash, { canonical: true })
+    .toDER("hex");
+  eccSignature.value = sig;
+  eccVerifyResult.textContent = "";
+};
+document.getElementById("btn-verify").onclick = async () => {
+  try {
+    const msg = eccMessage.value,
+      sig = normHex(eccSignature.value.trim()),
+      pub = normHex(eccPublic.value.trim());
+    if (!msg || !sig || !pub) {
+      alert("Lengkapi semua field!");
+      return;
+    }
+    const key = ec.keyFromPublic(pub, "hex");
+    const valid = key.verify(await sha256(msg), sig);
+    eccVerifyResult.textContent = valid
+      ? "Signature VALID!"
+      : "Signature TIDAK valid!";
+  } catch (e) {
+    eccVerifyResult.textContent = "Error verifikasi";
+  }
+};
 
-    </div>
+// ================== KONSENSUS PAGE ==================
+const ZERO = "0".repeat(64);
+let balances = { A: 100, B: 100, C: 100 };
+let txPool = [];
+let chainsConsensus = { A: [], B: [], C: [] };
 
-    <div id="page-hash" class="page">
-  <div class="tech-card">
-    <h2>SHA-256 GENERATOR</h2>
-    <p style="text-align: center; color: #666; margin-bottom: 30px;">
-      Simulasi fungsi hash satu arah. Ubah satu karakter, output berubah total.
-    </p>
-    
-    <label for="hash-input">Data Input:</label>
-    <textarea id="hash-input" rows="4" placeholder="Ketik sesuatu di sini..."></textarea>
-    
-    <label>Hash Output (Digital Fingerprint):</label>
-    <div id="hash-output" class="output"></div>
-  </div>
-    </div>
+function updateBalancesDOM() {
+  ["A", "B", "C"].forEach((u) => {
+    const el = document.getElementById("saldo-" + u);
+    if (el) el.textContent = balances[u];
+  });
+}
+function parseTx(line) {
+  const m = line.match(/^([A-C])\s*->\s*([A-C])\s*:\s*(\d+)$/);
+  if (!m) return null;
+  return { from: m[1], to: m[2], amt: parseInt(m[3]) };
+}
 
-    <div id="page-block" class="page">
-      <div class="tech-card">
-    <h2>MINING SIMULATOR</h2>
-    
-    <div style="background: #f4f4f4; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-      <label for="block-number">Block #:</label>
-      <input id="block-number" type="number" min="0" value="1" />
-      
-      <label for="block-nonce">Nonce:</label>
-      <input id="block-nonce" type="text" maxlength="9" />
-      
-      <label for="block-data">Data:</label>
-      <textarea id="block-data" rows="4">Halo Blockchain!</textarea>
+// ======== Mining Helper ========
+async function shaMine(prev, data, timestamp) {
+  const diff = "000";
+  const base = 1000;
+  const batch = base * 50;
+  return new Promise((resolve) => {
+    let nonce = 0;
+    async function loop() {
+      const promises = [];
+      for (let i = 0; i < batch; i++)
+        promises.push(sha256(prev + data + timestamp + (nonce + i)));
+      const results = await Promise.all(promises);
+      for (let i = 0; i < results.length; i++) {
+        const h = results[i];
+        if (h.startsWith(diff)) {
+          resolve({ nonce: nonce + i, hash: h });
+          return;
+        }
+      }
+      nonce += batch;
+      setTimeout(loop, 0);
+    }
+    loop();
+  });
+}
 
-      <label>Hash:</label>
-      <div id="block-hash" class="output"></div>
+// ======== Genesis dengan mining ========
+async function createGenesisConsensus() {
+  const diff = "000";
+  const ts = new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+  for (let u of ["A", "B", "C"]) {
+    let nonce = 0;
+    let found = "";
+    while (true) {
+      const h = await sha256(ZERO + "Genesis" + ts + nonce);
+      if (h.startsWith(diff)) {
+        found = h;
+        break;
+      }
+      nonce++;
+    }
+    chainsConsensus[u] = [
+      {
+        index: 0,
+        prev: ZERO,
+        data: "Genesis Block: 100 coins",
+        timestamp: ts,
+        nonce,
+        hash: found,
+        invalid: false,
+      },
+    ];
+  }
+  renderConsensusChains();
+  updateBalancesDOM();
+}
+createGenesisConsensus();
 
-      <div style="display: flex; gap: 10px; align-items: center; margin-top: 20px;">
-        <button id="btn-mine" class="mine">Mine Block</button>
-        <select id="speed-control" style="width: auto;">
-          <option value="1">Normal Speed</option>
-          <option value="10">10x Speed</option>
-          <option value="50">50x Speed</option>
-        </select>
-      </div>
-      <div id="mining-status" class="status" style="margin-top: 10px; font-weight: bold; color: var(--primary-orange);"></div>
-    </div>
-  </div>
-    </div>
+// ======== Render Konsensus Chain ========
+function renderConsensusChains() {
+  ["A", "B", "C"].forEach((u) => {
+    const cont = document.getElementById("chain-" + u);
+    cont.innerHTML = "";
+    chainsConsensus[u].forEach((blk, i) => {
+      const d = document.createElement("div");
+      d.className = "chain-block" + (blk.invalid ? " invalid" : "");
+      d.innerHTML = `
+        <div class="small"><strong>Block #${blk.index}</strong></div>
+        <div class="small">Prev:</div><input class="small" value="${blk.prev}" readonly>
+        <div class="small">Data:</div><textarea class="data" rows="3">${blk.data}</textarea>
+        <div class="small">Timestamp:</div><input class="small" value="${blk.timestamp}" readonly>
+        <div class="small">Nonce:</div><input class="small" value="${blk.nonce}" readonly>
+        <div class="small">Hash:</div><input class="small" value="${blk.hash}" readonly>`;
 
-    <div id="page-chain" class="page">
-      <div class="tech-card">
-    <h2>BLOCKCHAIN SIMULATION</h2>
-    <p style="text-align: center; color: #666; margin-bottom: 20px;">
-      Simulasi rantai blok. Validitas blok bergantung pada Hash blok sebelumnya.
-    </p>
+      // Attach listener: update data in model when user types,
+      // BUT DO NOT set blk.invalid = true here.
+      const ta = d.querySelector("textarea.data");
+      ta.addEventListener("input", (e) => {
+        chainsConsensus[u][i].data = e.target.value;
+        // intentionally do NOT mark blk.invalid here.
+        // Verification should be performed only when user clicks "Verify".
+      });
 
-    <div style="overflow-x: auto; padding-bottom: 20px; margin-bottom: 20px;">
-      <div id="blockchain" class="chain-container" style="display: flex; gap: 20px;">
-        </div>
-    </div>
+      cont.appendChild(d);
+    });
+  });
+}
 
-    <div style="text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-      <button id="btn-add-block" style="width: auto; padding: 12px 40px;">
-        <i class="fas fa-plus"></i> Tambah Blok Baru
-      </button>
-    </div>
-  </div>
-    </div>
+// ======== Kirim Transaksi ========
+["A", "B", "C"].forEach((u) => {
+  document.getElementById("send-" + u).onclick = () => {
+    const amt = parseInt(document.getElementById("amount-" + u).value);
+    const to = document.getElementById("receiver-" + u).value;
+    if (amt <= 0) {
+      alert("Jumlah > 0");
+      return;
+    }
+    if (balances[u] < amt) {
+      alert("Saldo tidak cukup");
+      return;
+    }
+    const tx = `${u} -> ${to} : ${amt}`;
+    txPool.push(tx);
+    document.getElementById("mempool").value = txPool.join("\n");
+  };
+});
 
-    <div id="page-ecc" class="page">
-<div class="tech-card">
-    <h2>ECC DIGITAL SIGNATURE</h2>
-    <p style="text-align: center; color: #666;">
-      Elliptic Curve Cryptography (SECP256k1)
-    </p>
+// ======== Mine Semua Transaksi ========
+document.getElementById("btn-mine-all").onclick = async () => {
+  if (txPool.length === 0) {
+    alert("Tidak ada transaksi.");
+    return;
+  }
+  const parsed = [];
+  for (const t of txPool) {
+    const tx = parseTx(t);
+    if (!tx) {
+      alert("Format salah: " + t);
+      return;
+    }
+    parsed.push(tx);
+  }
+  const tmp = { ...balances };
+  for (const tx of parsed) {
+    if (tmp[tx.from] < tx.amt) {
+      alert("Saldo " + tx.from + " tidak cukup.");
+      return;
+    }
+    tmp[tx.from] -= tx.amt;
+    tmp[tx.to] += tx.amt;
+  }
+  const ts = new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+  const data = txPool.join(" | ");
+  const mining = ["A", "B", "C"].map(async (u) => {
+    const prev = chainsConsensus[u].at(-1).hash;
+    const r = await shaMine(prev, data, ts);
+    chainsConsensus[u].push({
+      index: chainsConsensus[u].length,
+      prev,
+      data,
+      timestamp: ts,
+      nonce: r.nonce,
+      hash: r.hash,
+      invalid: false,
+    });
+  });
+  await Promise.all(mining);
+  balances = tmp;
+  updateBalancesDOM();
+  txPool = [];
+  document.getElementById("mempool").value = "";
+  renderConsensusChains();
+  alert("Mining selesai (50× lebih cepat).");
+};
 
-    <div style="background: #f9f9f9; padding: 20px; border-radius: 15px; margin-top: 20px;">
-      <h3 style="margin-top: 0; color: var(--primary-orange);">1. Generate Key Pair</h3>
-      <button id="btn-generate-key" style="margin-top: 0; margin-bottom: 15px; font-size: 0.8rem;">
-        Generate New Keys
-      </button>
-      
-      <div style="display: grid; gap: 15px;">
-        <div>
-          <label>Public Key:</label>
-          <textarea id="ecc-public" rows="2" readonly style="font-size: 0.8rem;"></textarea>
-        </div>
-        <div>
-          <label>Private Key:</label>
-          <textarea id="ecc-private" rows="2" style="font-size: 0.8rem; border-color: #ffcccc; background: #fff5f5;"></textarea>
-        </div>
-      </div>
-    </div>
+// ======== Tombol VERIFY Konsensus ========
+document.getElementById("btn-verify-consensus").onclick = async () => {
+  try {
+    for (const u of ["A", "B", "C"]) {
+      for (let i = 1; i < chainsConsensus[u].length; i++) {
+        // mulai dari 1 (lewatkan genesis)
+        const blk = chainsConsensus[u][i];
+        const expectedPrev = i === 0 ? ZERO : chainsConsensus[u][i - 1].hash;
+        const recomputed = await sha256(
+          blk.prev + blk.data + blk.timestamp + blk.nonce
+        );
+        blk.invalid = recomputed !== blk.hash || blk.prev !== expectedPrev;
+      }
+    }
+    renderConsensusChains();
+    alert("Verifikasi selesai — blok yang berubah ditandai merah.");
+  } catch (err) {
+    console.error("Error saat verifikasi Konsensus:", err);
+    alert("Terjadi kesalahan saat verifikasi Konsensus. Cek console.");
+  }
+};
 
-    <div style="margin-top: 30px; border-top: 2px dashed #eee; padding-top: 20px;">
-      <h3 style="color: var(--primary-orange);">2. Sign Message</h3>
-      <label>Pesan Asli:</label>
-      <textarea id="ecc-message" rows="3" placeholder="Tulis pesan yang mau ditandatangani..."></textarea>
-      
-      <button id="btn-sign">Sign Message</button>
-      
-      <label style="margin-top: 15px;">Digital Signature (Hasil):</label>
-      <textarea id="ecc-signature" rows="3" readonly></textarea>
-    </div>
+// ======== Tombol CONSENSUS ========
+document.getElementById("btn-consensus").onclick = async () => {
+  try {
+    const maxLen = Math.max(
+      chainsConsensus.A.length,
+      chainsConsensus.B.length,
+      chainsConsensus.C.length
+    );
+    for (let i = 0; i < maxLen; i++) {
+      const vals = [];
+      for (const u of ["A", "B", "C"])
+        if (chainsConsensus[u][i]) vals.push(chainsConsensus[u][i].data);
+      if (vals.length === 0) continue;
+      const freq = {};
+      let maj = vals[0];
+      let maxc = 0;
+      vals.forEach((v) => {
+        freq[v] = (freq[v] || 0) + 1;
+        if (freq[v] > maxc) {
+          maxc = freq[v];
+          maj = v;
+        }
+      });
+      for (const u of ["A", "B", "C"]) {
+        if (!chainsConsensus[u][i]) continue;
+        const blk = chainsConsensus[u][i];
+        blk.data = maj;
+        blk.prev = i === 0 ? ZERO : chainsConsensus[u][i - 1].hash;
+        blk.hash = await sha256(
+          blk.prev + blk.data + blk.timestamp + blk.nonce
+        );
+        blk.invalid = false;
+      }
+    }
+    renderConsensusChains();
+    alert("Konsensus selesai, semua blok diseragamkan.");
+  } catch (e) {
+    console.error(e);
+    alert("Error konsensus.");
+  }
+};
 
-    <div style="margin-top: 30px; border-top: 2px dashed #eee; padding-top: 20px;">
-      <h3 style="color: var(--primary-orange);">3. Verify Signature</h3>
-      <button id="btn-verify" style="background: #333;">Verify Signature</button>
-      <div id="ecc-verify-result" class="output" style="margin-top: 10px; text-align: center; font-weight: bold; font-size: 1.2rem;"></div>
-    </div>
+/// ================== UNIVERSAL POP UP LOGIC (FINAL) ================== //
 
-  </div>
-    </div>
+// Fungsi Buka Modal (Dipasang di window biar tombol HTML bisa baca)
+window.openModal = function(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('active');
+  } else {
+    console.error("Modal dengan ID " + modalId + " tidak ditemukan!");
+  }
+};
 
-    <div id="page-consensus" class="page">
-      <div class="tech-card" style="max-width: 1000px;">
-        <h2>DISTRIBUTED CONSENSUS</h2>
-    
-    <div class="wallets" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
-      
-      <div class="wallet-card">
-        <div class="wallet-header">USER A</div>
-        <div class="wallet-balance">Saldo: <span id="saldo-A">100</span> COIN</div>
-        <div class="wallet-body">
-          <label>Kirim ke:</label>
-          <select id="receiver-A"><option value="B">User B</option><option value="C">User C</option></select>
-          <label>Jumlah:</label>
-          <input id="amount-A" type="number" min="1" value="10" />
-          <button id="send-A" class="btn-small">Kirim</button>
-        </div>
-      </div>
+// Fungsi Tutup Modal
+window.closeModal = function(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('active');
+  }
+};
 
-      <div class="wallet-card">
-        <div class="wallet-header">USER B</div>
-        <div class="wallet-balance">Saldo: <span id="saldo-B">100</span> COIN</div>
-        <div class="wallet-body">
-          <label>Kirim ke:</label>
-          <select id="receiver-B"><option value="A">User A</option><option value="C">User C</option></select>
-          <label>Jumlah:</label>
-          <input id="amount-B" type="number" min="1" value="10" />
-          <button id="send-B" class="btn-small">Kirim</button>
-        </div>
-      </div>
-
-      <div class="wallet-card">
-        <div class="wallet-header">USER C</div>
-        <div class="wallet-balance">Saldo: <span id="saldo-C">100</span> COIN</div>
-        <div class="wallet-body">
-          <label>Kirim ke:</label>
-          <select id="receiver-C"><option value="A">User A</option><option value="B">User B</option></select>
-          <label>Jumlah:</label>
-          <input id="amount-C" type="number" min="1" value="10" />
-          <button id="send-C" class="btn-small">Kirim</button>
-        </div>
-      </div>
-    </div>
-
-<div style="background: #f9f9f9; color: #333; padding: 25px; border-radius: 15px; margin-bottom: 30px; border: 2px dashed #ddd;">
-      
-      <h3 style="margin-top: 0; color: var(--primary-orange); display: flex; align-items: center; gap: 10px;">
-        <i class="fas fa-list-alt"></i> Mempool (Pending Transactions)
-      </h3>
-      
-      <textarea id="mempool" rows="4" placeholder="Transaksi yang menunggu konfirmasi akan muncul di sini..." 
-        style="background: white; color: #333; border: 1px solid #ddd; width: 100%; padding: 15px; border-radius: 10px; font-family: var(--font-code);"></textarea>
-      
-      <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
-        <button id="btn-mine-all">Mine Semua Transaksi</button>
-        <button id="btn-verify-consensus">Verify Chain</button>
-        <button id="btn-consensus">Force Consensus</button>
-      </div>
-      
-    </div>
-
-    <h3>Blockchain Ledger Tiap Node</h3>
-    <div id="chains" style="display: grid; gap: 20px;">
-      <div><h4 style="margin: 0 0 10px 0;">Node A</h4><div id="chain-A" class="chain-row" style="overflow-x: auto; padding-bottom: 10px;"></div></div>
-      <div><h4 style="margin: 0 0 10px 0;">Node B</h4><div id="chain-B" class="chain-row" style="overflow-x: auto; padding-bottom: 10px;"></div></div>
-      <div><h4 style="margin: 0 0 10px 0;">Node C</h4><div id="chain-C" class="chain-row" style="overflow-x: auto; padding-bottom: 10px;"></div></div>
-    </div>
-
-  </div> </div> <div id="modal-teori" class="popup-overlay">
-  <div class="popup-box orange-theme">
-    <div class="popup-header">
-      <h3>Dasar Teori Singkat</h3>
-      <button class="btn-close" onclick="closeModal('modal-teori')">&times;</button>
-    </div>
-    <div class="popup-content left-align">
-      <p>
-        Blockchain adalah buku besar digital yang terdesentralisasi, didistribusikan, dan seringkali bersifat publik yang terdiri dari catatan-catatan yang disebut blok yang digunakan untuk mencatat transaksi di banyak komputer sehingga catatan tersebut tidak dapat diubah secara retroaktif tanpa mengubah semua blok berikutnya dan konsensus jaringan.
-      </p>
-    </div>
-  </div>
-</div>
-
-
-
-<div id="modal-menu" class="popup-overlay">
-  <div class="popup-box orange-theme">
-    <div class="popup-header">
-      <h3>Penjelasan Menu Bar:</h3>
-      <button class="btn-close" onclick="closeModal('modal-menu')">&times;</button>
-    </div>
-    <div class="popup-content left-align">
-      <ul>
-        <li><strong>Home:</strong> Tampilan Awal Website.</li>
-        <li><strong>About Me:</strong> Profil pembuat Website & Kontak.</li>
-        <li><strong>Hash:</strong> Input teks & hasil SHA-256.</li>
-        <li><strong>Block:</strong> Simulasi struktur blok tunggal (Mining).</li>
-        <li><strong>Block Chain:</strong> Simulasi rantai blok.</li>
-        <li><strong>ECC Signature:</strong> Simulasi Tanda tangan digital.</li>
-        <li><strong>Konsensus:</strong> Simulasi mekanisme konsensus (A, B, C).</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-<footer class="modern-footer">
-  <div class="footer-wrapper">
-    
-    <div class="footer-brand">
-      <img src="logo_pens.png" alt="PENS Logo" class="brand-logo">
-    </div>
-
-    <div class="footer-contact-card">
-      <div class="contact-row">
-        <div class="icon-circle">
-          <i class="fas fa-envelope"></i>
-        </div>
-        <div>
-          <span class="label">Email Me</span>
-          <a href="mailto:arvalriz24@gmail.com">arvalriz24@gmail.com</a>
-        </div>
-      </div>
-
-      <div class="contact-row">
-        <div class="icon-circle">
-          <i class="fas fa-globe"></i>
-        </div>
-        <div>
-          <span class="label">Website</span>
-          <a href="https://www.pens.ac.id/" target="_blank" class="pens-link">https://www.pens.ac.id/</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <p>&copy; 2025 Arval Rizki Aditya. All Rights Reserved.</p>
-  </div>
-</footer>
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/elliptic/6.5.4/elliptic.min.js"></script>
-    <script src="app.js"></script>
-  </body>
-</html>
+// Event Listener: Tutup kalau klik background gelap (Overlay)
+document.addEventListener('DOMContentLoaded', () => {
+  const overlays = document.querySelectorAll('.popup-overlay');
+  overlays.forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    });
+  });
+});
