@@ -286,12 +286,18 @@
     <div class="popup-content left-align">
       <ul>
         <li><strong>Home:</strong> Tampilan Awal Website.</li>
-        <li><strong>About Me:</strong> Profil pembuat Website & Kontak.</li>
-        <li><strong>Hash:</strong> Input teks & hasil SHA-256.</li>
-        <li><strong>Block:</strong> Simulasi struktur blok tunggal (Mining).</li>
-        <li><strong>Block Chain:</strong> Simulasi rantai blok.</li>
-        <li><strong>ECC Signature:</strong> Simulasi Tanda tangan digital.</li>
-        <li><strong>Konsensus:</strong> Simulasi mekanisme konsensus (A, B, C).</li>
+        <li><strong>About Me:</strong> Menampilkan profil pembuat website.</li>
+        <li><strong>Hash:</strong> Masukkan teks ke dalam input. Hasil SHA-256 Hash akan otomatis muncul setiap kali teks diubah.</li>
+        <li><strong>Block:</strong> Anda dapat mengubah nomor blok, memasukkan data, serta mengatur kecepatan mining. 
+          Tekan tombol Mine untuk memulai proses mining. Setelah hash dengan empat angka nol di awal ditemukan, nilai Nonce, Timestamp, dan Hash Block akan muncul.</li>
+        <li><strong>Block Chain:</strong> Masukkan data, tekan Mine, lalu tekan Add Block untuk menambahkan blok baru. 
+          Perhatikan bahwa Previous Hash pada blok baru harus sama dengan hash blok sebelumnya.</li>
+        <li><strong>ECC Signature:</strong> Klik Generate Key Pair untuk membuat Public Key dan Private Key. 
+          Tulis pesan, lalu tekan Sign Message untuk menghasilkan signature. Gunakan Verify Signature untuk mengecek validitas tanda tangan digital.</li>
+        <li><strong>Konsensus:</strong> Simulasi dengan 3 pengguna (masing-masing memiliki saldo awal 100 coin). 
+          Buat transaksi, kirim, lalu tekan Mine Semua Transaksi untuk membuat blok baru. 
+          Jika data pada blok diubah secara manual lalu tombol Verify ditekan, blok tersebut akan ditandai merah muda (invalid). 
+          Tekan Consensus untuk memperbaiki data berdasarkan mekanisme konsensus.</li>
       </ul>
     </div>
   </div>
